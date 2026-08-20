@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 import copy
 from copy import deepcopy
+import hashlib
 import json
 from math import isclose
 from pathlib import Path
@@ -25,11 +27,81 @@ class PayloadError(ValueError):
     pass
 
 
+class _CopyProblems:
+    """Collect every copy-block problem in one build instead of the first only.
+
+    Each missing or malformed ``blocks.<section>.<field>`` used to raise on
+    sight, so an author fixed one block, reran the whole build, and met the
+    next one: a serial loop whose length is the number of missing blocks.
+    ``copy.schema.json`` cannot catch them because ``blocks`` is a free-form
+    object, so this is the only place they are knowable. While a collector is
+    active the readers record the problem and return an empty value; nothing
+    between the reads and the raise does arithmetic on copy text, so the
+    placeholders are inert and every problem is reported together.
+    """
+
+    def __init__(self) -> None:
+        self.problems: list[str] = []
+
+    def record(self, message: str) -> None:
+        if message not in self.problems:
+            self.problems.append(message)
+
+
+#: Active collector, or None when the readers should raise immediately.
+_copy_problems: _CopyProblems | None = None
+
+
+def _copy_problem(message: str) -> None:
+    """Record a copy problem, or raise now when nothing is collecting."""
+    if _copy_problems is None:
+        raise PayloadError(message)
+    _copy_problems.record(message)
+
+
+def _copy_problem_report(problems: list[str]) -> str:
+    return f"copy.json has {len(problems)} problem(s):\n  - " + "\n  - ".join(problems)
+
+
+def _raise_collected_copy_problems() -> None:
+    """Report collected problems NOW, before an invariant reads a placeholder.
+
+    A collected problem leaves an empty placeholder behind. Any invariant that
+    then compares those placeholders raises its own, less actionable error,
+    which escapes the collector's block and hides the report this exists to
+    produce. Call this the moment collection for a stage is complete.
+    """
+    if _copy_problems is not None and _copy_problems.problems:
+        raise PayloadError(_copy_problem_report(_copy_problems.problems))
+
+
+@contextmanager
+def _collect_copy_problems():
+    """Batch copy problems across everything built inside this block.
+
+    A portfolio builds each member through ``build_payload``, so the OUTERMOST
+    block owns the report: nesting would otherwise stop at the first member
+    that has a problem, which is the same serial loop one level up.
+    """
+    global _copy_problems
+    if _copy_problems is not None:
+        yield _copy_problems
+        return
+    collector = _CopyProblems()
+    _copy_problems = collector
+    try:
+        yield collector
+    finally:
+        _copy_problems = None
+    if collector.problems:
+        raise PayloadError(_copy_problem_report(collector.problems))
+
+
 def _paragraphs(copy: dict, section: str, field: str, *, required: bool = True) -> list[str]:
     values = (copy.get("blocks", {}).get(section, {}) or {}).get(field)
     if values is None:
         if required:
-            raise PayloadError(f"copy.json is missing blocks.{section}.{field}")
+            _copy_problem(f"copy.json is missing blocks.{section}.{field}")
         return []
     return list(values)
 
@@ -51,9 +123,20 @@ def _achievement_pairs(values: list[str]) -> list[list[str]]:
 
 
 def _one(copy: dict, section: str, field: str) -> str:
+    # PRESENT-but-wrong and ABSENT are different problems. copy.schema.json
+    # permits an empty array, so `[]` is a real authored value that must still
+    # fail the exact-one rule; testing the returned list alone would treat it
+    # as "already reported missing" and ship a blank client-facing string.
+    present = (copy.get("blocks", {}).get(section, {}) or {}).get(field) is not None
     values = _paragraphs(copy, section, field)
     if len(values) != 1:
-        raise PayloadError(f"blocks.{section}.{field} must contain exactly one string")
+        # A missing block already recorded its own problem; do not report the
+        # same block twice as "missing" and "not exactly one".
+        if present:
+            _copy_problem(
+                f"blocks.{section}.{field} must contain exactly one string, "
+                f"not {len(values)}")
+        return ""
     return values[0]
 
 
@@ -62,7 +145,10 @@ def _paired(copy: dict, section: str, titles: str, bodies: str,
     title_values = _paragraphs(copy, section, titles, required=required)
     body_values = _paragraphs(copy, section, bodies, required=required)
     if len(title_values) != len(body_values):
-        raise PayloadError(f"blocks.{section}.{titles} and .{bodies} must have equal lengths")
+        _copy_problem(
+            f"blocks.{section}.{titles} has {len(title_values)} entries but "
+            f".{bodies} has {len(body_values)}; they must have equal lengths")
+        return []
     return [
         {"title": title, "copy": body}
         for title, body in zip(title_values, body_values, strict=True)
@@ -641,6 +727,107 @@ def published_manifest(media: dict) -> dict:
     }
 
 
+#: The canonical headshot registry. A team member's headshot is RESOLVED from
+#: this registry by the member's name, never supplied as a file path: the live
+#: Yarmouth site shipped a 240x240 unregistered thumbnail hand-copied from
+#: another deal's workspace because the contract accepted any path that existed
+#: on disk (RC-7).
+_REGISTRY_RELATIVE = Path("branding") / "headshots" / "canonical-headshots.json"
+_headshot_registry_cache: tuple[Path, dict] | None = None
+
+
+def _headshot_registry() -> tuple[Path, dict]:
+    """Return (repo root, registry) by SEARCHING upward for the registry file.
+
+    This module runs from two depths below the repository root: canonically
+    from `reporting/bovsite/`, and from the laaa-core plugin's vendored copy at
+    `plugins/laaa-core/vendor/bovsite/`. A fixed `parents[N]` is therefore
+    wrong for one of them -- `parents[2]` resolves the vendored copy to
+    `plugins/laaa-core/`, whose `branding/` does not exist, so every build
+    through the vendored generator raised before staging a headshot.
+    """
+    global _headshot_registry_cache
+    if _headshot_registry_cache is None:
+        for parent in Path(__file__).resolve().parents:
+            candidate = parent / _REGISTRY_RELATIVE
+            if candidate.is_file():
+                _headshot_registry_cache = (
+                    parent, json.loads(candidate.read_text(encoding="utf-8")))
+                break
+        else:
+            raise PayloadError(
+                f"headshot registry not found: no {_REGISTRY_RELATIVE.as_posix()} "
+                f"in any parent of {Path(__file__).resolve().parent}. Headshots "
+                "resolve from that registry; run the build from the "
+                "LAAA-AI-Prompts checkout.")
+    return _headshot_registry_cache
+
+
+def resolve_headshot(name: str) -> dict:
+    """Resolve a team member's approved headshot from the canonical registry.
+
+    Matches the member's name against each registry person's name and aliases
+    (whitespace- and case-insensitive). Fails loudly on no-match or ambiguity;
+    never falls through to a supplied file. The BOV renders the canonical
+    square master per the registry's selection rule.
+    """
+    repo_root, registry = _headshot_registry()
+    people = registry["people"]
+    wanted = " ".join(str(name or "").split()).casefold()
+    matches = []
+    for key, person in people.items():
+        candidates = [person.get("name", "")] + list(person.get("aliases") or [])
+        if any(" ".join(str(c).split()).casefold() == wanted for c in candidates):
+            matches.append((key, person))
+    if not matches:
+        known = ", ".join(sorted(p.get("name", k) for k, p in people.items()))
+        raise PayloadError(
+            f"no approved headshot for team member {name!r} in "
+            f"branding/headshots/canonical-headshots.json. Registered people: "
+            f"{known}. Fix the member's name or register the person; never "
+            "supply a headshot file path.")
+    if len(matches) > 1:
+        keys = ", ".join(key for key, _ in matches)
+        raise PayloadError(
+            f"team member {name!r} matches more than one headshot registry "
+            f"entry ({keys}); fix the registry aliases before building.")
+    key, person = matches[0]
+    derivative = person.get("canonicalSquare") or {}
+    rel = derivative.get("path")
+    sha = derivative.get("sha256")
+    source = repo_root / rel if rel else None
+    if not rel or not sha or not source.is_file():
+        raise PayloadError(
+            f"{name}: registry entry {key!r} has no usable canonicalSquare "
+            f"master on disk ({rel}). Restore the canonical file; never "
+            "substitute another image.")
+    if hashlib.sha256(source.read_bytes()).hexdigest() != sha:
+        raise PayloadError(
+            f"{name}: canonical headshot master {rel} does not match its "
+            "registered sha256. Restore the canonical file; never edit or "
+            "replace a registered derivative in place.")
+    return {"key": key, "source": source, "sha256": sha,
+            "filename": f"team-{key}{Path(rel).suffix}"}
+
+
+def _resolved_team(team: dict) -> dict:
+    """Bind each team member to their registered headshot in the payload."""
+    resolved = deepcopy(team)
+    for member in (resolved.get("leads") or []) + (resolved.get("grid") or []):
+        binding = resolve_headshot(member.get("name", ""))
+        member["headshot"] = f"images/{binding['filename']}"
+        member["headshot_sha256"] = binding["sha256"]
+    return resolved
+
+
+def _stage_headshots(payload: dict, site_repo: Path) -> None:
+    """Copy each member's registered derivative to its generated filename."""
+    team = payload.get("team") or {}
+    for member in (team.get("leads") or []) + (team.get("grid") or []):
+        binding = resolve_headshot(member.get("name", ""))
+        shutil.copy2(binding["source"], site_repo / "images" / binding["filename"])
+
+
 def _remove_stale_managed_images(site_repo: Path, keep: set[str]) -> None:
     """Remove only photos named by the prior generated media manifest."""
     previous_path = site_repo / "media-manifest.json"
@@ -665,6 +852,12 @@ def _remove_stale_managed_images(site_repo: Path, keep: set[str]) -> None:
 
 
 def build_payload(workspace: DealWorkspace) -> dict:
+    """Build one deal payload, reporting every copy problem together."""
+    with _collect_copy_problems():
+        return _build_payload(workspace)
+
+
+def _build_payload(workspace: DealWorkspace) -> dict:
     deal = workspace.load("deal")
     financials = workspace.load("financials")
     pricing = workspace.load("pricing")
@@ -1024,7 +1217,7 @@ def build_payload(workspace: DealWorkspace) -> dict:
             "hero": hero_ref,
             "hero_tall": presentation.get("hero_tall"),
         },
-        "team": presentation["team"],
+        "team": _resolved_team(presentation["team"]),
         "track_record": {
             "metrics": [["{closed}", "Closed Transactions"], ["{volume}", "Total Sales Volume"], ["{apt_units}", "Apartment Units Sold"]],
             "narrative": _paragraphs(copy, "track_record", "narrative"),
@@ -1087,6 +1280,7 @@ def write_payload(workspace: DealWorkspace, site_repo: Path | None = None) -> Pa
             workspace.media_root / "published" / item["filename"],
             images_dir / item["filename"],
         )
+    _stage_headshots(payload, site_repo)
     write_json_atomic(site_repo / "media-manifest.json", published_manifest(media))
     destination = site_repo / "bov-site.json"
     write_json_atomic(destination, payload)
@@ -1108,8 +1302,19 @@ def _portfolio_members(workspace: DealWorkspace) -> tuple[dict, dict[str, DealWo
 
 
 def build_portfolio_payload(workspace: DealWorkspace) -> tuple[dict, dict, dict[str, str]]:
+    """Build the portfolio payload, batching copy problems across members."""
+    with _collect_copy_problems():
+        return _build_portfolio_payload(workspace)
+
+
+def _build_portfolio_payload(workspace: DealWorkspace) -> tuple[dict, dict, dict[str, str]]:
     portfolio, members = _portfolio_members(workspace)
     member_payloads = {deal_id: build_payload(member) for deal_id, member in members.items()}
+    # Every member is built, so the collection is complete. Report it here:
+    # the portfolio invariants below compare member copy for byte-identity,
+    # and a placeholder left by a missing block would fail that comparison
+    # first, replacing the actionable report with "must be byte-identical".
+    _raise_collected_copy_problems()
     member_hashes = {deal_id: domain_hashes(member) for deal_id, member in members.items()}
     member_contracts = {deal_id: project_domains(member) for deal_id, member in members.items()}
     aggregate = portfolio_domain_hashes(portfolio, member_hashes)
@@ -1196,7 +1401,7 @@ def build_portfolio_payload(workspace: DealWorkspace) -> tuple[dict, dict, dict[
             "hero_tall": "images/portfolio-hero-split-tall.jpg",
             "portfolio_map": presentation["portfolio_map"],
         },
-        "team": presentation["team"],
+        "team": _resolved_team(presentation["team"]),
         "track_record": first_payload["track_record"],
         "marketing": first_payload["marketing"],
         "portfolio": {
@@ -1242,6 +1447,7 @@ def write_portfolio_payload(workspace: DealWorkspace, site_repo: Path | None = N
                 member.media_root / "published" / by_id[item_id]["filename"],
                 images / filename_map[(deal_id, item_id)],
             )
+    _stage_headshots(payload, site_repo)
     write_json_atomic(site_repo / "media-manifest.json", combined_media)
     destination = site_repo / "bov-site.json"
     write_json_atomic(destination, payload)

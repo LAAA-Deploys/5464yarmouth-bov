@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://laaa.com/contracts/bov/portfolio-1.0.0.schema.json",
+  "$id": "https://laaa.com/contracts/bov/portfolio-1.1.0.schema.json",
   "type": "object", "additionalProperties": false,
   "required": ["schema_version", "portfolio_id", "name", "members", "portfolio_price", "portfolio_price_basis", "site_repo", "presentation"],
   "properties": {
-    "schema_version": {"const": "1.0.0"}, "portfolio_id": {"type": "string"}, "name": {"type": "string"},
+    "schema_version": {"description": "1.1.0 resolves team headshots from the canonical registry instead of an authored path. 1.0.0 is still accepted and still builds: the authored headshot field is ignored, so no workspace needs migrating.", "enum": ["1.0.0", "1.1.0"]}, "portfolio_id": {"type": "string"}, "name": {"type": "string"},
     "members": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["deal_id", "workspace"], "properties": {"deal_id": {"type": "string"}, "workspace": {"type": "string"}}}},
     "portfolio_price": {"type": ["number", "null"]}, "portfolio_price_basis": {"type": ["string", "null"]},
     "site_repo": {"type": "string", "pattern": "^(?![A-Za-z]:|/|\\\\)(?!.*(?:^|[\\\\/])\\.\\.(?:[\\\\/]|$)).+$"},
@@ -23,6 +23,6 @@
   ],
   "$defs": {
     "team": {"type": "object", "additionalProperties": false, "required": ["leads", "grid"], "properties": {"leads": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/teamMember"}}, "grid": {"type": "array", "items": {"$ref": "#/$defs/teamMember"}}}},
-    "teamMember": {"type": "object", "additionalProperties": false, "required": ["name", "title", "phone", "tel", "email", "license", "headshot", "bio"], "properties": {"name": {"type": "string"}, "title": {"type": "string"}, "phone": {"type": "string"}, "tel": {"type": "string"}, "email": {"type": "string"}, "license": {"type": "string"}, "headshot": {"type": "string"}, "bio": {"type": "string"}}}
+    "teamMember": {"type": "object", "description": "A member's headshot is not authored: it is resolved from branding/headshots/canonical-headshots.json by the member's name at build time.", "additionalProperties": false, "required": ["name", "title", "phone", "tel", "email", "license", "bio"], "properties": {"name": {"type": "string"}, "title": {"type": "string"}, "phone": {"type": "string"}, "tel": {"type": "string"}, "email": {"type": "string"}, "license": {"type": "string"}, "headshot": {"type": "string", "description": "LEGACY and IGNORED. Pre-1.1.0 spines authored a headshot path here. The build resolves each member's approved headshot from branding/headshots/canonical-headshots.json by name and overwrites this value, so an old spine still builds correctly and needs no migration. Never author it in a new spine."}, "bio": {"type": "string"}}}
   }
 }

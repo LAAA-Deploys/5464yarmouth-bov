@@ -21,8 +21,9 @@
         "tel": "8182122724",
         "email": "Morgan.Wetmore@marcusmillichap.com",
         "license": "CA License: 02209935",
-        "headshot": "images/headshot_morgan-wetmore.jpg",
-        "bio": "Associate covering the San Fernando Valley from the Encino office, specializing in multifamily investment sales across the Valley submarkets including Encino."
+        "headshot": "images/team-morgan-wetmore.jpg",
+        "bio": "Associate covering the San Fernando Valley from the Encino office, specializing in multifamily investment sales across the Valley submarkets including Encino.",
+        "headshot_sha256": "450503e582b40f7542f62b2b14024ea93aa2ae290ef910b999370a2df9eb19a9"
       },
       {
         "name": "Glen Scher",
@@ -31,9 +32,10 @@
         "tel": "8182122808",
         "email": "Glen.Scher@marcusmillichap.com",
         "license": "CA License: 01962976",
-        "headshot": "images/headshot_glen-scher.jpg",
+        "headshot": "images/team-glen-scher.jpg",
         "bio": "Co-founder of the LAAA Team and head of its multifamily sales practice. Since joining Marcus & Millichap in 2014, Glen and partner Filip Niculete have built LAAA into one of Southern California's most active multifamily brokerage groups.",
-        "role_kicker": "Principal"
+        "role_kicker": "Principal",
+        "headshot_sha256": "32abb08b4fceeb6f011c53b33660c521bb21606697a710e5d52eb688646919d1"
       },
       {
         "name": "Filip Niculete",
@@ -42,91 +44,100 @@
         "tel": "8182122748",
         "email": "Filip.Niculete@marcusmillichap.com",
         "license": "CA License: 01905352",
-        "headshot": "images/headshot_filip-niculete.jpg",
+        "headshot": "images/team-filip-niculete.jpg",
         "bio": "Co-founder of the LAAA Team and head of its land and development-site practice. Filip and partner Glen Scher have closed multifamily and development transactions across Southern California together since 2019.",
-        "role_kicker": "Principal"
+        "role_kicker": "Principal",
+        "headshot_sha256": "63c20fde9deeb498aa777df872f22177fcfbcf19c9de30513e96aed0a3db8e66"
       }
     ],
     "grid": [
       {
-        "name": "Aida Memary",
+        "name": "Aida Memary Scher",
         "title": "Associate, Investments",
-        "headshot": "images/roster_aida-memary-scher.jpg",
+        "headshot": "images/team-aida-memary-scher.jpg",
         "phone": "(818) 212-2678",
         "tel": "8182122678",
         "email": "Aida.Memary@marcusmillichap.com",
         "license": "CA License: 01980240",
-        "bio": "Associate Director Investments covering Santa Monica and the West Side."
+        "bio": "Associate Director Investments covering Santa Monica and the West Side.",
+        "headshot_sha256": "2b79aef007970b218d331a0915532cd28c490b622ce9b9889a4976fa6d06a263"
       },
       {
         "name": "Logan Ward",
         "title": "Associate, Investments",
-        "headshot": "images/roster_logan-ward.jpg",
+        "headshot": "images/team-logan-ward.jpg",
         "phone": "(818) 212-2675",
         "tel": "8182122675",
         "email": "Logan.Ward@marcusmillichap.com",
         "license": "CA License: 02200464",
-        "bio": "Associate Investments covering the Ventura and Santa Barbara corridors."
+        "bio": "Associate Investments covering the Ventura and Santa Barbara corridors.",
+        "headshot_sha256": "1c6b33a3e1ff06d91669c087472ea475abb4e72b71eea1dece17da7192caa329"
       },
       {
         "name": "Luka Leader",
         "title": "Associate, Investments",
-        "headshot": "images/roster_luka-leader.jpg",
+        "headshot": "images/team-luka-leader.jpg",
         "phone": "(818) 212-2743",
         "tel": "8182122743",
         "email": "Luka.Leader@marcusmillichap.com",
         "license": "CA License: 02245434",
-        "bio": "Associate Investments covering Pasadena and the San Gabriel Valley."
+        "bio": "Associate Investments covering Pasadena and the San Gabriel Valley.",
+        "headshot_sha256": "209dc8c5bbf146aabeaa62f645ca1f8bf22d90bda56c554e09fe6e9f748d67d2"
       },
       {
         "name": "Alexandro Tapia",
         "title": "Associate, Investments",
-        "headshot": "images/roster_alexandro-tapia.jpg",
+        "headshot": "images/team-alexandro-tapia.jpg",
         "phone": "(818) 212-2767",
         "tel": "8182122767",
         "email": "Alex.Tapia@marcusmillichap.com",
         "license": "CA License: 02366379",
-        "bio": "Associate Investments covering East Hollywood and Koreatown."
+        "bio": "Associate Investments covering East Hollywood and Koreatown.",
+        "headshot_sha256": "bf42b3b40e7c6db61423608de54b99cd8a26fd7fe1d19c104b8d62ff261cf6d9"
       },
       {
         "name": "Blake Lewitt",
         "title": "Associate, Investments",
-        "headshot": "images/roster_blake-lewitt.jpg",
+        "headshot": "images/team-blake-lewitt.jpg",
         "phone": "(818) 212-2813",
         "tel": "8182122813",
         "email": "Blake.Lewitt@marcusmillichap.com",
         "license": "CA License: 02363670",
-        "bio": "Associate Investments covering the West San Fernando Valley."
+        "bio": "Associate Investments covering the West San Fernando Valley.",
+        "headshot_sha256": "c31fb17dad59a871735d0dcd9c791410a068670ab166dbd33e9ce183279e773a"
       },
       {
         "name": "Mike Palade",
         "title": "Agent Assistant",
-        "headshot": "images/roster_mike-palade.jpg",
+        "headshot": "images/team-mike-palade.jpg",
         "phone": "(818) 212-2817",
         "tel": "8182122817",
         "email": "Mike.Palade@marcusmillichap.com",
         "license": "Agent Assistant",
-        "bio": "Agent Assistant supporting the LAAA Team."
+        "bio": "Agent Assistant supporting the LAAA Team.",
+        "headshot_sha256": "fb4940c644b35e2228859aa3e7833b77aa25ac55b2c7c1a70b9d21d4ea2d31a6"
       },
       {
         "name": "Tony H. Dang",
         "title": "Business Operations Manager",
-        "headshot": "images/roster_tony-dang.jpg",
+        "headshot": "images/team-tony-dang.jpg",
         "phone": "(818) 212-2763",
         "tel": "8182122763",
         "email": "Tony.Dang@marcusmillichap.com",
         "license": "Business Operations Manager",
-        "bio": "Business Operations Manager for the LAAA Team."
+        "bio": "Business Operations Manager for the LAAA Team.",
+        "headshot_sha256": "2da6d8881424c550f8c30a05a627edac393c5642d9bd8d26cfd5fd7828a37c78"
       },
       {
         "name": "Tirajeh Vossoughi-Horton",
         "title": "Investment Brokerage Intern",
-        "headshot": "images/roster_tirajeh-vossoughi-horton.jpg",
+        "headshot": "images/team-tirajeh-vossoughi-horton.jpg",
         "phone": "(818) 699-7214",
         "tel": "8186997214",
         "email": "Tirajeh.VossoughiHorton@marcusmillichap.com",
         "license": "Investment Brokerage Intern",
-        "bio": "Investment Brokerage Intern with the LAAA Team."
+        "bio": "Investment Brokerage Intern with the LAAA Team.",
+        "headshot_sha256": "8c21ad6a15427700bef7af04b7138c36ca7d840f75bd3445f76b2a4461105bd9"
       }
     ]
   },
@@ -2988,7 +2999,7 @@
   "approval_binding": {
     "deal_id": "5464-yarmouth",
     "domains": {
-      "identity": "98e6d60bbc895bd1a94b6bb6ce6ed1d281f4a81793439bd33c11e35cb7500fe6",
+      "identity": "1358adf4c2ef398eac50e4dbc8cebbc8aabbfda43ea912bfa727be1dc314238e",
       "financial_inputs": "d62fe908c9c80320b26c13be03e7ede39daacf747782bc7ca5b0a2024d132936",
       "pricing_decision": "fb1cdd6225328f9c645ca8df0fcb0b720dd31b8c350e0d9902ea67bdb8d094b0",
       "sale_comps": "24fe04b231fd3beacf22162846cec5af9bb9078e59baf58ab6c9a4eb7acb58b0",
@@ -2998,7 +3009,7 @@
       "regulatory_conclusions": "9f1ba9c23dfbd12c8a92775cea92af0cc9c4ced1c08cbed0b4bf3283aa8bb938"
     },
     "presentation_hashes": {
-      "identity": "9817a4d4f221e04ced599341cc3f36b45757098a4d5e56d76c55dc3bd3f1d0cd",
+      "identity": "af0e426ac1fc21ce3f9616a5bfd6bbfab28e333f885e91b8c50a7a480ab33b1b",
       "financial_inputs": "96f9d8460d45459c39f32fd8cbbd514cb19a4aa3d4fad3214389bf57c2945db8",
       "pricing_decision": "22575966e557ff7990efeb1582b44bd2b10b7ed56d85fb1f9957e61ae1f6d8ab",
       "sale_comps": "301a30ee93237a162033d04dbccfd43e7cc5fbe8bab640e39e0653fa3d804045",
@@ -3010,7 +3021,7 @@
   },
   "stats": {
     "live": true,
-    "generated": "2026-08-20T21:11:28+00:00",
+    "generated": "2026-08-20T23:13:28+00:00",
     "geography": {
       "states": 21,
       "has_dc": true,

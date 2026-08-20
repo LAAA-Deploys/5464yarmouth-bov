@@ -19,7 +19,7 @@
         "stock_or_illustrative": {"type": "boolean"}, "stock_basis": {"type": ["string", "null"]},
         "property_match": {"enum": ["confirmed_human", "unreviewed", "rejected"]}, "match_basis": {"type": ["string", "null"]}, "reviewed_by": {"type": ["string", "null"]}, "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
         "rights_holder": {"type": ["string", "null"]}, "publication_basis": {"enum": ["seller_provided", "team_owned", "photographer_authorized", "licensed", "glen_standing_rule", "glen_exception", null]}, "usage_scope": {"type": ["string", "null"]}, "required_credit": {"type": ["string", "null"]},
-        "status": {"enum": ["research_only", "publication_candidate", "published", "rejected"]}, "rejected_reason": {"type": ["string", "null"]},
+        "status": {"description": "Declares WHICH FOLDER under the media root the file lives in, so changing status MOVES the file rather than copying it: published -> published/, rejected -> rejected/, and both research_only and publication_candidate -> archive/. checks/media.py resolves the path from this value and fails when the file is not in that folder, so a copy left behind in the old folder is a duplicate, not a promotion.", "enum": ["research_only", "publication_candidate", "published", "rejected"]}, "rejected_reason": {"type": ["string", "null"]},
         "rendered_width": {"type": ["integer", "null"], "minimum": 1}, "rendered_height": {"type": ["integer", "null"], "minimum": 1}, "exception_id": {"type": ["string", "null"]}
       }
     }
