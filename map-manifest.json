@@ -1,0 +1,230 @@
+{
+  "entries": [
+    {
+      "property": "5464yarmouth",
+      "category": "subject",
+      "lat": 34.1704337,
+      "lng": -118.5198536,
+      "place_id": "ChIJz78LSbCZwoAR5P6HIcHzP4U",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5464 Yarmouth Ave, Encino. Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "sold",
+      "order": 1,
+      "lat": 34.1690522,
+      "lng": -118.5250012,
+      "place_id": "ChIJTSanBK-ZwoARcwDCe4BJxBs",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5415 Newcastle Ave, Encino. Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "sold",
+      "order": 2,
+      "lat": 34.1719473,
+      "lng": -118.5113026,
+      "place_id": "ChIJzdUCSraZwoARYpYXeVfQByE",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "17340 Burbank Blvd, Encino. Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "sold",
+      "order": 3,
+      "lat": 34.1637086,
+      "lng": -118.5197434,
+      "place_id": "ChIJtdAB67KZwoARcJiG60CgSlI",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5130 Yarmouth Ave, Encino. Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "active",
+      "order": 1,
+      "lat": 34.1642819,
+      "lng": -118.5199065,
+      "place_id": "ChIJyaKU8rKZwoARpbZuAPf9s1M",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5150 Yarmouth Ave, Encino. Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 1,
+      "lat": 34.1690522,
+      "lng": -118.5250012,
+      "place_id": "ChIJTSanBK-ZwoARcwDCe4BJxBs",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5415 Newcastle Ave, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 2,
+      "lat": 34.1690522,
+      "lng": -118.5250012,
+      "place_id": "ChIJTSanBK-ZwoARcwDCe4BJxBs",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5415 Newcastle Ave, Encino, CA 91316 (2 Bed / 1.5 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 3,
+      "lat": 34.1690522,
+      "lng": -118.5250012,
+      "place_id": "ChIJTSanBK-ZwoARcwDCe4BJxBs",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5415 Newcastle Ave, Encino, CA 91316 (3 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 4,
+      "lat": 34.1719473,
+      "lng": -118.5113026,
+      "place_id": "ChIJzdUCSraZwoARYpYXeVfQByE",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "17340 Burbank Blvd, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 5,
+      "lat": 34.1719473,
+      "lng": -118.5113026,
+      "place_id": "ChIJzdUCSraZwoARYpYXeVfQByE",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "17340 Burbank Blvd, Encino, CA 91316 (2 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 6,
+      "lat": 34.1719473,
+      "lng": -118.5113026,
+      "place_id": "ChIJzdUCSraZwoARYpYXeVfQByE",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "17340 Burbank Blvd, Encino, CA 91316 (3 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 7,
+      "lat": 34.1701582,
+      "lng": -118.5207319,
+      "place_id": "ChIJ73NgLrCZwoARoV2V7OWJr6M",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5461 Yarmouth Ave, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 8,
+      "lat": 34.1642819,
+      "lng": -118.5199065,
+      "place_id": "ChIJyaKU8rKZwoARpbZuAPf9s1M",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5150 Yarmouth Ave, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 9,
+      "lat": 34.1642819,
+      "lng": -118.5199065,
+      "place_id": "ChIJyaKU8rKZwoARpbZuAPf9s1M",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5150 Yarmouth Ave, Encino, CA 91316 (2 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 10,
+      "lat": 34.1642819,
+      "lng": -118.5199065,
+      "place_id": "ChIJyaKU8rKZwoARpbZuAPf9s1M",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5150 Yarmouth Ave, Encino, CA 91316 (3 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 11,
+      "lat": 34.1706169,
+      "lng": -118.5235262,
+      "place_id": "ChIJ8-KKma-ZwoARFMfOMuwtwuI",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5500 Newcastle Ave, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 12,
+      "lat": 34.1705487,
+      "lng": -118.5251116,
+      "place_id": "ChIJD6MwcK-ZwoARX_HolMme0DA",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "5501 Newcastle Ave, Encino, CA 91316 (1 Bed / 1 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    },
+    {
+      "property": "5464yarmouth",
+      "category": "rent",
+      "order": 13,
+      "lat": 34.1718849,
+      "lng": -118.5087863,
+      "place_id": "ChIJSxJ3xMmZwoAR1BMX6IgXjPw",
+      "precision": "ROOFTOP",
+      "needs_review": false,
+      "source_note": "17200 Burbank Blvd, Encino, CA 91316 (2 Bed / 2 Bath). Google Places rooftop resolution via laaa-geo resolveAddress(), 2026-08-20"
+    }
+  ],
+  "closings": {
+    "5464yarmouth": {
+      "source": "https://www.laaa.com/track-record",
+      "pulled": "2026-08-20T19:55:36+00:00",
+      "basis": {
+        "type": "radius",
+        "label": "within 3 miles",
+        "radius_mi": 3
+      },
+      "apartment_sales": 13,
+      "other_closings": 2,
+      "apartment_markers": 12,
+      "other_markers": 2,
+      "render": "images/maps-5464yarmouth-closings.png"
+    }
+  },
+  "renders": {
+    "images/maps-portfolio-subjects.png": "85f6dab516118579e00c90486dc5e18077cab81e890bf5b7563fc5bed18620d1",
+    "images/maps-portfolio-subjects-tall.png": "232ab31582b9e725feb3fc590b7eab0213cc917a9800541cff37be5cd56aab91",
+    "images/maps-5464yarmouth-subject.png": "990b46a4b9f65acd0e317948d9d76d90f80eba23907f6fde070548ac039429b1",
+    "images/maps-5464yarmouth-subject-tall.png": "34e1b39219284997a627d5ceac406ece30dc69762a6f97bccc37ac7fd579a94c",
+    "images/maps-5464yarmouth-sale-comps.png": "27f49f214cf64659860c99ac76424636f173fb1a82fcf57ff71b582e6ad5e2ae",
+    "images/maps-5464yarmouth-sale-comps-tall.png": "e46276274b63c1ce1e9c3d9321453a1e345282cd32429bff9ab70f85f5417238",
+    "images/maps-5464yarmouth-rent-comps.png": "f5447092bfc9083ec99227f35f6390e3d7c1598768125cd9790dd263f849c19a",
+    "images/maps-5464yarmouth-rent-comps-tall.png": "d7339f619d804392f72f53aaf1fbc218f1b1369ec95799a0c8c81be3990f75cf",
+    "images/maps-5464yarmouth-active-comps.png": "a619020d8d77c270039397dab93b7da7311bad697d571eb6d05d2f09a89f0813",
+    "images/maps-5464yarmouth-active-comps-tall.png": "5c81a546f3acca18bb40a5808a95a99c40aadbdf5632547b9babee51b86412c7",
+    "images/maps-5464yarmouth-closings.png": "5e0a5f6bd90afcd8038214af60db0caaaf3730fb7ba4be36ca600f28412c50b0"
+  }
+}

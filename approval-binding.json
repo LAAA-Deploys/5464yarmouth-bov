@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "deal",
+  "deal_id": "5464-yarmouth",
+  "portfolio_id": null,
+  "package_version": "v1",
+  "approved_at": "2026-08-20T20:23:11.370458+00:00",
+  "approver": "Glen Scher",
+  "price": {
+    "value": 15000000
+  },
+  "approved_exception_ids": [
+    "fin-below-line",
+    "fin-dec-reversal",
+    "fin-marketing-alarm",
+    "fin-superseded"
+  ],
+  "domains": {
+    "copy": {
+      "content_sha256": "82218448fe7196595c349525783943b01d931415dd20eff1bd61bf29743dcf8c"
+    },
+    "financial_inputs": {
+      "content_sha256": "d62fe908c9c80320b26c13be03e7ede39daacf747782bc7ca5b0a2024d132936"
+    },
+    "identity": {
+      "content_sha256": "98e6d60bbc895bd1a94b6bb6ce6ed1d281f4a81793439bd33c11e35cb7500fe6"
+    },
+    "media_selection": {
+      "content_sha256": "bad690ded15ed05d39788e5f39f505ea327d188f8b57b3857d440248afa1a7c6"
+    },
+    "pricing_decision": {
+      "content_sha256": "fb1cdd6225328f9c645ca8df0fcb0b720dd31b8c350e0d9902ea67bdb8d094b0"
+    },
+    "regulatory_conclusions": {
+      "content_sha256": "9f1ba9c23dfbd12c8a92775cea92af0cc9c4ced1c08cbed0b4bf3283aa8bb938"
+    },
+    "rent_comps": {
+      "content_sha256": "1dcd1675839cf7d8ee0e12e86b5861dddc4ff090bc7ecd75a73d13029112d5ec"
+    },
+    "sale_comps": {
+      "content_sha256": "24fe04b231fd3beacf22162846cec5af9bb9078e59baf58ab6c9a4eb7acb58b0"
+    }
+  },
+  "legacy_snapshot": false,
+  "legacy_label": null,
+  "members": null
+}
