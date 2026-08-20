@@ -3,8 +3,8 @@
   "scope": "deal",
   "deal_id": "5464-yarmouth",
   "portfolio_id": null,
-  "package_version": "v1",
-  "approved_at": "2026-08-20T20:23:11.370458+00:00",
+  "package_version": "v2",
+  "approved_at": "2026-08-20T21:10:00.563847+00:00",
   "approver": "Glen Scher",
   "price": {
     "value": 15000000
@@ -17,7 +17,7 @@
   ],
   "domains": {
     "copy": {
-      "content_sha256": "82218448fe7196595c349525783943b01d931415dd20eff1bd61bf29743dcf8c"
+      "content_sha256": "74323c09cc7cb2c2032ce065df33996f1070b18cf644101e4f69fc063f0b3464"
     },
     "financial_inputs": {
       "content_sha256": "d62fe908c9c80320b26c13be03e7ede39daacf747782bc7ca5b0a2024d132936"

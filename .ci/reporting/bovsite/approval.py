@@ -26,7 +26,14 @@ from reporting.bovsite.site_artifacts import (
 )
 
 
-APPROVER = "Glen Scher"
+#: Either partner may approve any LAAA deal, including the other's (Hard Rule 15;
+#: Glen ruling 2026-08-19). This was the single name "Glen Scher" until
+#: 2026-08-20. That one constant did BOTH halves of the damage: the record
+#: builders wrote it in unconditionally, so a Filip approval was published to a
+#: seller-facing site as Glen's, and the three validators rejected any other
+#: name, so recording him honestly failed the build instead. The approver is now
+#: passed in and checked against this tuple. Codex P1 on PR #196.
+APPROVERS = ("Glen Scher", "Filip Niculete")
 LEGACY_LABEL = "NOT A RETROACTIVE APPROVAL"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -234,6 +241,7 @@ def _portfolio_media_projection(
 def build_deal_record(
     workspace: DealWorkspace,
     *,
+    approver: str,
     approval_note: str,
     channel: str,
     package_version: str | None = None,
@@ -241,7 +249,12 @@ def build_deal_record(
     legacy_snapshot: bool = False,
 ) -> dict:
     if not approval_note.strip():
-        raise ApprovalError("approval note must quote Glen's approval verbatim")
+        raise ApprovalError("approval note must quote the approving partner's approval verbatim")
+    if approver not in APPROVERS:
+        raise ApprovalError(
+            "approver must be one of " + ", ".join(repr(n) for n in APPROVERS)
+            + f", got {approver!r}. The approver is PUBLISHED in the site's "
+            "approval record, so it must name whoever actually approved.")
     deal = workspace.load("deal")
     pricing = workspace.load("pricing")
     copy = workspace.load("copy")
@@ -270,7 +283,7 @@ def build_deal_record(
         "portfolio_id": None,
         "package_version": version,
         "approved_at": approved_at or datetime.now(timezone.utc).isoformat(),
-        "approver": APPROVER,
+        "approver": approver,
         "channel": channel,
         "approval_note": approval_note,
         "price": deal_price_summary(pricing),
@@ -328,8 +341,9 @@ def check_deal_record(workspace: DealWorkspace, record_path: Path | None = None)
     deal = workspace.load("deal")
     if record["deal_id"] != deal["deal_id"]:
         errors.append("approval deal_id does not match deal.json")
-    if record["approver"] != APPROVER:
-        errors.append(f"approval approver must be {APPROVER!r}")
+    if record["approver"] not in APPROVERS:
+        errors.append("approval approver must be one of "
+                      + ", ".join(repr(name) for name in APPROVERS))
     if record["legacy_snapshot"] and record.get("legacy_label") != LEGACY_LABEL:
         errors.append(f"legacy snapshots must be labelled {LEGACY_LABEL!r}")
     if record["legacy_snapshot"]:
@@ -530,8 +544,9 @@ def check_site_record(site: Path) -> tuple[list[str], list[str], dict | None]:
             )
             if rendered_ref != expected_ref and not derived_portfolio_cover:
                 errors.append("portfolio cover hero differs from published media manifest")
-    if record["approver"] != APPROVER:
-        errors.append(f"approval approver must be {APPROVER!r}")
+    if record["approver"] not in APPROVERS:
+        errors.append("approval approver must be one of "
+                      + ", ".join(repr(name) for name in APPROVERS))
     return errors, warnings, record
 
 
@@ -568,13 +583,19 @@ def portfolio_site_repo(workspace: DealWorkspace, portfolio: dict | None = None)
 def build_portfolio_record(
     workspace: DealWorkspace,
     *,
+    approver: str,
     approval_note: str,
     channel: str,
     package_version: str | None = None,
     approved_at: str | None = None,
 ) -> dict:
     if not approval_note.strip():
-        raise ApprovalError("approval note must quote Glen's approval verbatim")
+        raise ApprovalError("approval note must quote the approving partner's approval verbatim")
+    if approver not in APPROVERS:
+        raise ApprovalError(
+            "approver must be one of " + ", ".join(repr(n) for n in APPROVERS)
+            + f", got {approver!r}. The approver is PUBLISHED in the site's "
+            "approval record, so it must name whoever actually approved.")
     portfolio, members = portfolio_members(workspace)
     member_hashes = {deal_id: domain_hashes(member) for deal_id, member in members.items()}
     aggregate = portfolio_domain_hashes(portfolio, member_hashes)
@@ -622,7 +643,7 @@ def build_portfolio_record(
         "portfolio_id": portfolio["portfolio_id"],
         "package_version": version,
         "approved_at": approved_at or datetime.now(timezone.utc).isoformat(),
-        "approver": APPROVER,
+        "approver": approver,
         "channel": channel,
         "approval_note": approval_note,
         "price": {
@@ -675,8 +696,9 @@ def check_portfolio_record(workspace: DealWorkspace) -> tuple[list[str], list[st
         errors.append("approval scope is not portfolio")
     if record.get("portfolio_id") != portfolio["portfolio_id"]:
         errors.append("approval portfolio_id does not match portfolio.json")
-    if record["approver"] != APPROVER:
-        errors.append(f"approval approver must be {APPROVER!r}")
+    if record["approver"] not in APPROVERS:
+        errors.append("approval approver must be one of "
+                      + ", ".join(repr(name) for name in APPROVERS))
     if record["legacy_snapshot"]:
         errors.append("portfolio approvals cannot be legacy snapshots")
     for domain in DOMAIN_NAMES:
